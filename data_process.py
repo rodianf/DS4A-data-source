@@ -34,11 +34,11 @@ df = pd.merge(df, sitio_data, how='left', on='Clase de sitio')
 
 # ======================
 # Drop unused columns
-df = df.drop(columns = ['Departamento', 'Barrio', 'Zona', 'Estado civil', 'Código DANE','Clase de sitio'])
+df = df.drop(columns = ['Departamento', 'Barrio', 'Zona', 'Estado civil', 'Código DANE'])
 
 # Rename Barrio column
 df = df.rename(columns={'Barrio_Nombre':'Barrio',
-			'Nueva clase':'Clase de sitio'})
+			'Nueva clase':'Categoria de sitio'})
 
 # Exporta data to csv
 df.to_csv('datos.csv', index=False, index_label=False)
