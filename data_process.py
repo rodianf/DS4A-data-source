@@ -34,11 +34,21 @@ df = pd.merge(df, sitio_data, how='left', on='Clase de sitio')
 
 # ======================
 # Drop unused columns
-df = df.drop(columns = ['Departamento', 'Barrio', 'Zona', 'Estado civil', 'Código DANE'])
+df = df.drop(columns = ['Departamento', 'Barrio', 'Zona', 'Estado civil', 'Código DANE', 'Clase de sitio', 'País de nacimiento', 'Clase de empleado', 'Profesión', 'Escolaridad'])
 
 # Rename Barrio column
 df = df.rename(columns={'Barrio_Nombre':'Barrio',
 			'Nueva clase':'Categoria de sitio'})
+			
+# Móvil Agresor y Víctima cleaning
+df["Móvil Agresor"] = df["Móvil Agresor"].replace(['PASAJERO METRO','PASAJERO BARCO','TRIPULANTE AERONAVE','PASAJERO AERONAVE'], "OTROS")
+df["Móvil Victima"] = df["Móvil Victima"].replace(['PASAJERO METRO','PASAJERO BARCO','TRIPULANTE AERONAVE','PASAJERO AERONAVE'], "OTROS")
+
+# Arma
+df['Arma empleada'] = df['Arma empleada'].replace(['ARMAS BLANCAS','JERINGA','CORTANTES'], "ARMA BLANCA / CORTOPUNZANTE")
+df['Arma empleada'] = df['Arma empleada'].replace(['LLAVE MAESTRA'], "CONTUNDENTES")
+df['Arma empleada'] = df['Arma empleada'].replace(['PERRO'], "SIN EMPLEO DE ARMAS")
 
 # Exporta data to csv
 df.to_csv('datos.csv', index=False, index_label=False)
+
